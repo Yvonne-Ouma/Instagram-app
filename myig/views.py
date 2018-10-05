@@ -5,5 +5,6 @@ from .models import Image,Profile
 def welcome(request):
     date = dt.date.today()
     images = Image.objects.all()
-    return render(request, 'index.html',{"date": date, "images": images})
+    profiles = Profile.objects.all()
+    return render(request, 'index.html',{"date": date, "images": images, "profiles": profiles})
 

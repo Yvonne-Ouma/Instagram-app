@@ -12,8 +12,11 @@ class Profile(models.Model):
         self.save()
 
     def delete_profile(self):
-        self.delete()    
+        self.delete() 
 
+           
+    def __str__(self):
+        return self.user_name
 
 
 class Image(models.Model):
@@ -27,7 +30,8 @@ class Image(models.Model):
         self.save()
 
     def delete_image():
-        self.delete()    
+         self.delete()    
     
 
-    
+    def __str__(self):
+        return self.name
