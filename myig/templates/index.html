@@ -1,4 +1,30 @@
 {% extends 'base.html'%}
-{% block content %}
-<h2>jihn jufhn jhiugughcn jkbvfd</h2>
-{% endblock content %}
+<html>
+
+<body>
+
+    {{block.super}}
+    {% block content %}
+
+    <h1 class='text-center'>date {{date|date:"l d-F Y"}}</h1>
+
+    <div class="container">
+
+        <!-- Looping through posts   -->
+        <div class="row" style=padding-top:70px;>
+            <h1 style="text-align:center; font-family: 'Bungee Shade', cursive;
+        ">Instagram</h1>
+            {% for image_item in images %}
+            <p>Posted {{ image_item.posted_time|timesince }} ago.</p>
+            <h3>{{image_item.name}}</h3>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <img src="{{image_item.image.url}}" alt="Image" height=400px style=" box-shadow: 4px 7px 7px 7px grey; padding:20px; transition: all 0.3s ease 0s; cursor:
+pointer; opacity: 0.8;">
+            </div>
+            {% endfor %}
+
+            {% endblock %}
+
+</body>
+
+</html>
