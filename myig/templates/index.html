@@ -9,29 +9,31 @@
     <!-- <h1 class='text-center'>date {{date|date:"l d-F Y"}}</h1> -->
 
     <div class="container" style="padding-top:150px">
-    
-        <!-- Looping through posts   -->
-    
 
-            <div class="row" >
-                <div class="col-md-6">
-                    {% for image_item in images %}
-                    <div class="thumbnail">
-                            
-                        <p>Posted {{ image_item.posted_time|timesince }} ago.</p>
-                            <img src="{{image_item.image.url}}" alt="Image" height=400px style=" box-shadow: 1px 1px 1px 1px grey; padding:10px; transition: all 0.3s ease 0s; cursor:
+        <!-- Looping through posts   -->
+
+
+        <div class="row">
+            <div class="col-md-6">
+                {% for image_item in images %}
+                <div class="thumbnail">
+                    <img src="{{image_item.profile.profile_image.url}}" alt=""style="border-radius:50%;">
+                    <p>Posted {{ image_item.posted_time|timesince }} ago.</p>
+                    <img src="{{image_item.image.url}}" alt="Image" height=400px style=" box-shadow: 1px 1px 1px 1px grey; padding:10px; transition: all 0.3s ease 0s; cursor:
 pointer; opacity: 0.8;">
-                            <div class="caption">
-                                <img src="" alt="" height = 60px width=100px>
-                            </div>
-                            <div>
-                                <a href=""><p>Add a comment.....</p></a>
-                            </div>
-                           
+                    <div class="caption">
+                        <img src="" alt="" height=60px width=100px>
                     </div>
-                    {% endfor %}
+                    <div>
+                        <a href="">
+                            <p>Add a comment.....</p>
+                        </a>
+                    </div>
+
                 </div>
-                <div class="col-md-6"><a href="post/"><button type="button" class="btn btn-default">Post</button></a></div>
+                {% endfor %}
+            </div>
+            <div class="col-md-6"><a href="post/"><button type="button" class="btn btn-default">Post</button></a></div>
 
             {% endblock %}
 
