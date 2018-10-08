@@ -90,7 +90,7 @@ def profile(request):
 
 
 @login_required(login_url='/accounts/login')
-def edit_profile(request):
+def edit_profile(request,id):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -102,6 +102,31 @@ def edit_profile(request):
         form = ProfileForm()
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+
+@login_required(login_url='/accounts/login/')
+def post(request):
+    test = 'Working'
+    current_user = request.user
+    profiles = Profile.objects.all()
+    for profile in profiles:
+        if profile.user.id == current_user.id:
+            if request.method == 'POST':
+                form = PostForm(request.POST, request.FILES)
+                if form.is_valid():
+                    post = form.save(commit=False)
+                    post.creator = current_user
+                    post.profile = profile
+                    post.save()
+                    return redirect('home')
+            else:
+                form = PostForm()
+                content = {
+                    "test": test,
+                    "post_form": form,
+                    "user": current_user
+                }
+    return render(request, 'post.html', content)
 
 # def profile(request):
 #     photo = Profile.objects.all()
