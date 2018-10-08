@@ -90,7 +90,7 @@ def profile(request):
 
 
 @login_required(login_url='/accounts/login')
-def edit_profile(request,id):
+def edit_profile(request,):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -105,8 +105,7 @@ def edit_profile(request,id):
 
 
 @login_required(login_url='/accounts/login/')
-def post(request):
-    test = 'Working'
+def post_image(request):
     current_user = request.user
     profiles = Profile.objects.all()
     for profile in profiles:
