@@ -1,19 +1,40 @@
-{% block content %}
-<h2>Sign up</h2>
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-        <small style="display: none">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
-        {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-</form>
-{% endblock %}
+{%load bootstrap3%}
+<div class="container">
+    {% block content %}
+    <div class="row">
+
+
+        <div class="col-md-4">
+            <div class="col-md-4">
+                <img src="https://assets.materialup.com/uploads/5a50041d-51d0-416a-b55a-b1798bc1a81d/preview.png" style=" float:left; width:40%"
+                    alt="">
+            </div>
+            <div style=" margin-top: 30px; ">
+                <h2>Sign up</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small style="display: none">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                    {% endfor %}
+                    <button type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4"></div>
+
+    </div>
+
+
+
+    {% endblock %}
+</div>

@@ -4,7 +4,7 @@ import datetime as dt
 from .models import Image,Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm
+from .forms import SignupForm, ProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -13,14 +13,14 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 
+
 # Create your views here.
 
 @login_required(login_url='/accounts/login/')
 def welcome(request):
     date = dt.date.today()
     images = Image.objects.all()
-    profiles = Profile.objects.all()
-    return render(request, 'index.html',{"date": date, "images": images, "profiles": profiles})
+    return render(request, 'index.html',{"date": date, "images": images})
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -60,3 +60,17 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    current_user= request.user
+    images = Image.objects.filter(owner = request.user)
+    profiles = Profile.objects.filter(user = request.user)
+
+    content = {
+        "current_user": current_user,
+        "images": images,
+        "profiles": profiles
+    }
+
+    return render(request, 'proifle/profile.html',content)

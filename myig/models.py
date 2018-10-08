@@ -1,11 +1,14 @@
 from django.db import models
 import datetime as dt
+from django.contrib.auth.mmodels import User
 # Create your models here.
 
-class Profile(models.Model):
+class Profile(models.Model): 
+    user = models.OneToOneFrield(User, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=50)
     bio = models.CharField(max_length=50)
     profile_image = models.ImageField(upload_to = 'profiles/',blank = True)
+    
     
 
     def save_profile(self):
