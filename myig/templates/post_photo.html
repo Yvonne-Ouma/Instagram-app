@@ -1,5 +1,5 @@
-{% load bootstrap3 %} {% block content %}
-<div class="container">
+{% extends 'base.html' %} {% load bootstrap3 %} {% block content %}
+<div class="container" style = "padding-top:120px">
 <form action="{% url 'post_image' %}" method="post" enctype="multipart/form-data">
         {%csrf_token%} {% bootstrap_form form %}
         <input type="submit" class="btn btn-outline-secondary btn-lg" value="Post">
