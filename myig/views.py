@@ -126,14 +126,13 @@ def comment(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.image = image
+            comment.image = request.user.image
             comment.user = current_user
             comment.save()
             return redirect('welcome')
     else:
         form = CommentForm()
-    return render(request, 'comment.html', {"user": current_user,
-                                            "form": form})
+    return render(request, 'comment.html', {"form": form})
 
 
 
