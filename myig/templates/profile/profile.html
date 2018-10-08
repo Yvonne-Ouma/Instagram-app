@@ -1,4 +1,9 @@
+
+{% load bootstrap3 %}
+
 {% block content%}
+{{ block.supper }}
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
 
@@ -61,8 +66,23 @@
         text-align: left;
     }
 </style>
-{% for profile in photo%}
-<img src="{{profile.photo.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
-<p></p>
-{% endfor %}
+
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-6">
+        <form action="{%url 'profile' %}" method='post' enctype="multipart/form-data">
+            {%csrf_token%}
+            {% bootstrap_form form layout='inline' %}
+            <input type="submit" class="btn btn-danger btn-lg " value="post">
+        </form>
+    </div>
+
+<div class="co-md-6">
+    <img src="{{user.photo.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
+    <p></p>
+</div>
+
+</div>
+</div>
 {% endblock %}
