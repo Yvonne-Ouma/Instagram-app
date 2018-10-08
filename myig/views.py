@@ -112,11 +112,11 @@ def post_image(request):
             post = form.save(commit=False)
             post.profile = profile
             post.save()
-            return redirect('index.html',{"post": post, "form":form})
+            return redirect('home')
     
     else:
         form = PostForm()
-    return render(request, 'post.html', )
+    return render(request, 'index.html', {"post": post, "form": form})
 
 # def profile(request):
 #     photo = Profile.objects.all()
