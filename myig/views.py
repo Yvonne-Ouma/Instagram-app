@@ -116,7 +116,7 @@ def post_image(request):
     
     else:
         form = PostForm()
-    return render(request, 'index.html', {"post": post, "form": form})
+        return render(request, 'post_photo.html', { "form": form})
 
 # def profile(request):
 #     photo = Profile.objects.all()
