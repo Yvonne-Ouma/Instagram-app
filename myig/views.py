@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 import datetime as dt
-from .models import Image,Profile
+from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .forms import SignupForm, ProfileForm
@@ -20,7 +20,9 @@ from django.core.mail import EmailMessage
 def welcome(request):
     date = dt.date.today()
     images = Image.objects.all()
-    return render(request, 'index.html',{"date": date, "images": images})
+    return render(request, 'index.html', {"date": date, "images": images})
+
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -33,18 +35,19 @@ def signup(request):
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_activation_token.make_token(user),
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
+
 
 def activate(request, uidb64, token):
     try:
@@ -61,13 +64,56 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
+
+def search_results(request):
+    if 'profile' in request.GET and request.GET["profile"]:
+        search_term = request.GET.get('profile')
+        searched_profiles = Profile.search_profile(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html', {"message": message, "profiles": searched_profiles})
+
+    else:
+        message = "No searched profile"
+        return render(request, 'search.html', {"message": message})
+
+
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    photo = Profile.objects.filter(user = request.user)
+    profile = User.objects.get(username=request.user)
+    try:
+        profile = Profile.get_by_id(profile.id)
+    except:
+        profile = Profile.filter_by_id(profile.id)
+    images = Image.get_profile_images(profile.id)
+    return render(request, 'profile/profile.html', {'profile': profile, 'profile': profile, 'images': images})
+
+
+@login_required(login_url='/accounts/login')
+def edit_profile(request):
     if request.method == 'POST':
-        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            return redirect('edit_profile')
     else:
         form = ProfileForm()
-    return render(request, 'profile/profile.html',{"form":form,"photo":photo})
+
+    return render(request, 'profile/edit_profile.html', {'form': form})
+
+# def profile(request):
+#     photo = Profile.objects.all()
+#     user = User.objects.get(username=request.user)
+#     print(photo)
+
+#     print('photo')
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, request.FILES,
+#                            instance=request.user.profile)
+#         if form.is_valid():
+#             form.save()
+#     else:
+#         form = ProfileForm()
+#     return render(request, 'profile/profile.html', {"form": form, 'user': user, "photo": photo})

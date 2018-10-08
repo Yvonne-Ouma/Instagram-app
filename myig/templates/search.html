@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container" style="padding:120px">
+
+    <div class="row">
+        {% if profiles%}
+        <h2>Found {{ images|length }} of searched term {{message}}</h2>
+
+
+        {% else %}
+        <h2> Found 0 images for the search term {{message}}</h2>
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+
+        {% if images %}
+        {% for image in profiles %}
+        <div class="col-md-6">
+            <div class="panel panel-default" width=200px>
+                <div class="panel-heading">
+                    <h1>{{image.user_name}}</h1>
+                </div>
+                <div class="panel-body"><img src="{{image.profile_image.url}}" alt="image" width="400px"></div>
+
+                <div class="panel-footer">
+                    <p>{{image.profile_caption}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

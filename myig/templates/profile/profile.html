@@ -1,6 +1,6 @@
-
 {% load bootstrap3 %}
 
+{% load static %}
 {% block content%}
 {{ block.supper }}
 
@@ -11,8 +11,8 @@
     <section class="logo-section"><img class="logo" src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" />
         <div></div><img class="logoname" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" />
     </section>
-    <form class="search-section">
-        <input class="input-search" type="search" name="search" placeholder="search" />
+    <form class="search-section" action="{% url 'search_results' %}">
+        <input class="input-search" type="search" name="search"  placeholder="search" />
     </form>
     <section class="icons-section"><a class="fa fa-compass" href="#"></a><a class="fa fa-heart" href="#"></a><a class="fa fa-user"
             href="#"></a></section>
@@ -70,19 +70,12 @@
 
 <div class="container">
     <div class="row">
-    <div class="col-md-6">
-        <form action="{%url 'profile' %}" method='post' enctype="multipart/form-data">
-            {%csrf_token%}
-            {% bootstrap_form form layout='inline' %}
-            <input type="submit" class="btn btn-danger btn-lg " value="post">
-        </form>
+
+        <div class="col-md-6">
+            <img src="{{profile.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
+            {{user.username}}</p>{{profile.bio}}
+        </div>
+
     </div>
-
-<div class="co-md-6">
-    <img src="{{user.photo.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
-    <p></p>
-</div>
-
-</div>
 </div>
 {% endblock %}
