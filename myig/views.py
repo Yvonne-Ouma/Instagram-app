@@ -97,7 +97,7 @@ def edit_profile(request,):
             edit = form.save(commit=False)
             edit.user = request.user
             edit.save()
-            return redirect('edit_profile')
+            return redirect('profile')
     else:
         form = ProfileForm()
 
@@ -117,4 +117,6 @@ def post_image(request):
     else:
         form = PostForm()
         return render(request, 'post_photo.html', {"form": form})
+
+
 

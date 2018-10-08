@@ -19,3 +19,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Image
         exclude = ['creator', 'likes', 'time', 'tags', 'comment', 'profile']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        exclude = []
