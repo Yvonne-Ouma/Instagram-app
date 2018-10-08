@@ -8,17 +8,68 @@
 </head>
 
 <body>
-    
-    <nav class="navbar navbar-inverse" style="background: linear-gradient(hsla(189, 36%, 54%, 0.26), rgba(180, 46, 162, 0.171),rgba(181, 46, 162, 0.170)); padding:0px; position: fixed; z-index: 1; top: 0; width: 100%;">
-        <div class="container-fluid">
-            <div class="navbar-header">
-<a class="navbar-brand" href=""><img src="https://sguru.org/wp-content/uploads/2018/01/instagram-colourful-icon.png"
-        width=80px
-height = 60px alt=""></a>
-<a href="" class="navbar-brand">Home</a>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
 
-            </div>
-        </div>
+<nav class="navbar">
+    <section class="logo-section"><img class="logo" src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" />
+        <div></div><img class="logoname" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" />
+    </section>
+    <form class="search-section" action="{% url 'search_results' %}">
+        <input class="input-search" type="search" name="search" placeholder="search" />
+    </form>
+    <section class="icons-section"><a class="fa fa-compass" href="#"></a><a class="fa fa-heart" href="#"></a><a class="fa fa-user"
+            href="#"></a></section>
+</nav>
+
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .navbar .logo-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .logo-section div {
+        align-self: stretch;
+        width: 1px;
+        background: black;
+        margin: 0 20px;
+    }
+
+    .navbar .icons-section .fa {
+        text-decoration: none;
+        color: inherit;
+        font-size: 2rem;
+        margin: 0 10px;
+    }
+
+    .navbar .logo {
+        width: 40px;
+    }
+
+    .navbar .logoname {
+        width: 130px;
+    }
+
+    .navbar .input-search {
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        border: 2px solix #ddd;
+        outline: 0;
+    }
+
+    .navbar .input-search:focus {
+        text-align: left;
+    }
+</style>
         <!--The search form above-->
             <div class="col-sm-6 col-md-6">
                     {% if user.is_authenticated %}
@@ -29,7 +80,7 @@ height = 60px alt=""></a>
                             </a>
                         <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li>
                             <a href="/accounts/password/change">Change Password</a>
@@ -38,7 +89,7 @@ height = 60px alt=""></a>
                             <a href="/logout">Logout</a>
                         </li>
                         <li>
-                        <a href="/accounts/register">Register</a>
+                        <a href="/signup">Register</a>
                     </li>
                         </ul>
                     </li>
