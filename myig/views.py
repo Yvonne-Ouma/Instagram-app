@@ -4,7 +4,7 @@ import datetime as dt
 from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm, ProfileForm,PostForm
+from .forms import SignupForm, ProfileForm, PostForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -110,13 +110,13 @@ def post_image(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.profile = profile
+            post.profile = request.user.profile
             post.save()
-            return redirect('home')
-    
+            return redirect('welcome')
+
     else:
         form = PostForm()
-        return render(request, 'post_photo.html', { "form": form})
+        return render(request, 'post_photo.html', {"form": form})
 
 # def profile(request):
 #     photo = Profile.objects.all()
