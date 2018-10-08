@@ -51,3 +51,21 @@ class Image(models.Model):
         return images
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+
+    text = models.CharField(max_length=200, blank=True)
+    poster = models.ForeignKey(User,  on_delete=models.CASCADE)
+    post = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='comments')
+    posted_time = models.DateTimeField(auto_now_add=True)
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+
+    def __str__(self):
+        return self.text
+
+
