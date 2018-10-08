@@ -4,7 +4,7 @@ import datetime as dt
 from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm, ProfileForm
+from .forms import SignupForm, ProfileForm,PostForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -106,26 +106,17 @@ def edit_profile(request,):
 
 @login_required(login_url='/accounts/login/')
 def post_image(request):
-    current_user = request.user
-    profiles = Profile.objects.all()
-    for profile in profiles:
-        if profile.user.id == current_user.id:
-            if request.method == 'POST':
-                form = PostForm(request.POST, request.FILES)
-                if form.is_valid():
-                    post = form.save(commit=False)
-                    post.creator = current_user
-                    post.profile = profile
-                    post.save()
-                    return redirect('home')
-            else:
-                form = PostForm()
-                content = {
-                    "test": test,
-                    "post_form": form,
-                    "user": current_user
-                }
-    return render(request, 'post.html', content)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.profile = profile
+            post.save()
+            return redirect('index.html',{"post": post, "form":form})
+    
+    else:
+        form = PostForm()
+    return render(request, 'post.html', )
 
 # def profile(request):
 #     photo = Profile.objects.all()
