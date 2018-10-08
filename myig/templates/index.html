@@ -17,7 +17,7 @@
             <div class="col-md-6">
                 {% for image_item in images %}
                 <div class="thumbnail">
-                    <img src="{{image_item.profile.profile_image.url}}" alt=""style="border-radius:50%; height:60px; width:60px; ">
+                    <img src="{{image_item.profile.profile_image.url}}" alt=""style="border-radius:50%; height:60px; width:60px; float:left;">
                     <p>Posted {{ image_item.posted_time|timesince }} ago.</p>
                     <img src="{{image_item.image.url}}" alt="Image" height=400px style=" box-shadow: 1px 1px 1px 1px grey; padding:10px; transition: all 0.3s ease 0s; cursor:
 pointer; opacity: 0.8;">
@@ -25,8 +25,7 @@ pointer; opacity: 0.8;">
                         <img src="" alt="" height=60px width=100px>
                     </div>
                     <div>
-                        <a href="">
-                            <p>Add a comment.....</p>
+                        <a href=""><h3>Add a comment.....</h3>
                         </a>
                     </div>
 
