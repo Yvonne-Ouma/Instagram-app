@@ -59,12 +59,12 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        # return redirect('home')
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
 
 
+@login_required(login_url='/accounts/login/')
 def search_results(request):
     if 'profile' in request.GET and request.GET["profile"]:
         search_term = request.GET.get('profile')
@@ -89,7 +89,7 @@ def profile(request):
     return render(request, 'profile/profile.html', {'profile': profile, 'profile': profile, 'images': images})
 
 
-@login_required(login_url='/accounts/login')
+@login_required(login_url='/accounts/login/')
 def edit_profile(request,):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
@@ -118,17 +118,3 @@ def post_image(request):
         form = PostForm()
         return render(request, 'post_photo.html', {"form": form})
 
-# def profile(request):
-#     photo = Profile.objects.all()
-#     user = User.objects.get(username=request.user)
-#     print(photo)
-
-#     print('photo')
-#     if request.method == 'POST':
-#         form = ProfileForm(request.POST, request.FILES,
-#                            instance=request.user.profile)
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = ProfileForm()
-#     return render(request, 'profile/profile.html', {"form": form, 'user': user, "photo": photo})
