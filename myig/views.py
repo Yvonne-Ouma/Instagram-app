@@ -63,14 +63,11 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-    current_user= request.user
-    images = Image.objects.filter(owner = request.user)
-    profiles = Profile.objects.filter(user = request.user)
-
-    content = {
-        "current_user": current_user,
-        "images": images,
-        "profiles": profiles
-    }
-
-    return render(request, 'proifle/profile.html',content)
+    photo = Profile.objects.filter(user = request.user)
+    if request.method == 'POST':
+        form=ProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ProfileForm()
+    return render(request, 'profile/profile.html',{"form":form,"photo":photo})

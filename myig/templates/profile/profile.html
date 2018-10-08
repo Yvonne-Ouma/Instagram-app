@@ -12,6 +12,7 @@
     <section class="icons-section"><a class="fa fa-compass" href="#"></a><a class="fa fa-heart" href="#"></a><a class="fa fa-user"
             href="#"></a></section>
 </nav>
+
 <style>
     .navbar {
         display: flex;
@@ -60,8 +61,8 @@
         text-align: left;
     }
 </style>
-{% for profile in profiles%}
-<img src="{{profile.profile.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
+{% for profile in photo%}
+<img src="{{profile.photo.profile_image.url}}" alt="" style="border-radius:50%; height:60px; width:100px; padding:0px; margin:0px;">
 <p></p>
 {% endfor %}
 {% endblock %}
