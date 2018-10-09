@@ -25,9 +25,10 @@ Yvonne Ouma
 * python3.6 manager.py runserver
 
 ### Technologies used
-* HTML
+* HTML5
 * CSS
 * Bootstrap3
+* Pyhton3.6
 * Django Framework
 * Virtual environment
 
