@@ -20,7 +20,8 @@ from django.core.mail import EmailMessage
 def welcome(request):
     date = dt.date.today()
     images = Image.objects.all()
-    return render(request, 'index.html', {"date": date, "images": images})
+    profiles = Profile.objects.all()
+    return render(request, 'index.html', {"date": date, "images": images, 'profiles': profiles})
 
 
 def signup(request):
@@ -80,13 +81,15 @@ def search_results(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
+    current_user = request.user
     profile = User.objects.get(username=request.user)
-    try:
-        profile = Profile.get_by_id(profile.id)
-    except:
-        profile = Profile.filter_by_id(profile.id)
+    images = Profile.objects.get(user=current_user)
+    # try:
+    #     profile = Profile.get_by_id(profile.id)
+    # except:
+    #     profile = Profile.filter_by_id(profile.id)
     images = Image.get_profile_images(profile.id)
-    return render(request, 'profile/profile.html', {'profile': profile, 'profile': profile, 'images': images})
+    return render(request, 'profile/profile.html', {'user': current_user,  'images': images})
 
 
 @login_required(login_url='/accounts/login/')
