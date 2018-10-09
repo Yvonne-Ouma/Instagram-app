@@ -119,8 +119,9 @@ def post_image(request):
         return render(request, 'post_photo.html', {"form": form})
 
 
-def comment(request, pk):
-    image = get_object_or_404(Image, pk=pk)
+@login_required(login_url='/accounts/login/')
+def comment(request, id):
+    image = get_object_or_404(Image, pk=id)
     current_user = request.user
     if request.method == 'POST':
         form = CommentForm(request.POST)
