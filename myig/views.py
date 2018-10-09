@@ -93,18 +93,36 @@ def profile(request):
 
 
 @login_required(login_url='/accounts/login/')
-def edit_profile(request,):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            edit = form.save(commit=False)
-            edit.user = request.user
-            edit.save()
-            return redirect('profile')
+def edit_profile(request):
+    form = ProfileForm()
+    user = request.user
+    if request.user.is_authenticated():
+        if request.method == "POST":
+            try:
+                profile = user.profile
+                form = ProfileForm(instance=profile)
+                form = ProfileForm(
+                    request.POST, request.FILES, instance=profile)
+                if form.is_valid():
+                    update = form.save(commit=False)
+                    update.user = user
+                    update.save()
+            except:
+                form = ProfileForm(request.POST, request.FILES)
+                print(form.is_valid())
+                if form.is_valid():
+                    form.save()
+                    user_name = form.cleaned_data['user_name']
+                    profile = Profile.objects.get(user_name=user_name)
+                    print(profile)
+                    profile.user = user
+                    profile.save()
+            return redirect('welcome')
     else:
         form = ProfileForm()
 
-    return render(request, 'profile/edit_profile.html', {'form': form})
+
+    return render(request, 'profile/edit_profile.html', {'form': form, 'user':user})
 
 
 @login_required(login_url='/accounts/login/')

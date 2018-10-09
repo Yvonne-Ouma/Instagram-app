@@ -36,19 +36,19 @@ pointer; opacity: 0.8;">
                 </div>
                 {% endfor %}
             </div>
-            <div class="col-md-6"><a href="post/"><button type="button" class="btn btn-default">Post</button></a>
+            <div class="col-md-6" style= "padding-bottom: 20px;"><a href="post/"><button type="button" class="btn btn-default">Post</button></a>
             
 <div id="halsey">
     {% for profiles_item in profiles %}
     <div class="row">
         <div class="col-md-6">
 {% if profiles_item.user.profile.profile_image %}
-            <section> <img style="border-radius: 50% ; padding: 0.15rem; background: linear-gradient(to right bottom, #d82c66, #c92e3b, #e15e43, #f3813f, #ffa63e);"
+            <section> <img style="border-radius: 50% ; padding: 0.15rem; background: linear-gradient(to right bottom, #d82c66, #c92e3b, #9c341f, #90236c, #9b5b13);"
             class=" img-circle" src="{{profiles_item.user.profile.profile_image.url}}" alt="" width="50px" height="50px"> 
             {{ profiles_item.user.username }}</section> <br>
                                                         {% else %}
                     <img style="border-radius: 50% ; padding: 0.15rem; background: linear-gradient(to right bottom, #d82c66,
-                    #c92e3b, #e15e43, #f3813f, #ffa63e);" class=" img-circle" src="https://www.bristolbrewing.com/wp-content/uploads/2017/08/default-avatar.png"
+                    #c92e3b, #e15e43, #f3813f, #6c5486);" class=" img-circle" src="https://www.bristolbrewing.com/wp-content/uploads/2017/08/default-avatar.png"
                     alt="" width="50px" height="50px"> {{ profiles_item.user.username}}</section> <br> 
                                                                         
                                                         {% endif %}
