@@ -4,7 +4,7 @@ import datetime as dt
 from .models import Image, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
-from .forms import SignupForm, ProfileForm, PostForm,CommentForm
+from .forms import SignupForm, ProfileForm, PostForm, CommentForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -127,13 +127,10 @@ def comment(request, id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.image = request.user.image
-            comment.user = current_user
+            comment.post = image
+            comment.poster = current_user
             comment.save()
             return redirect('welcome')
     else:
         form = CommentForm()
     return render(request, 'comment.html', {"form": form})
-
-
-
