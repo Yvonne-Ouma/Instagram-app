@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
 
-<nav class="navbar">
+<nav class="navbar" style="position: fixed; z-index: 1; top: 0; width: 100%;">
     <section class="logo-section"><img class="logo" src="https://seeklogo.com/images/I/instagram-new-2016-glyph-logo-84CB825424-seeklogo.com.png" />
         <div></div><img class="logoname" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png" />
     </section>
@@ -20,6 +20,36 @@
     </form>
     <section class="icons-section"><a class="fa fa-compass" href="#"></a><a class="fa fa-heart" href="#"></a><a class="fa fa-user"
             href="/profile/"></a></section>
+            {% if user.is_authenticated %}
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/password/change">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="/logout">Logout</a>
+                        </li>
+                        <li>
+                            <a href="/signup">Register</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            {% else %}
+            <li>
+                <a class='btn btn-default' href="/accounts/login">Login</a>
+            </li>
+
+            {% endif %}
+
+
 </nav>
 
 <style>
@@ -70,40 +100,6 @@
         text-align: left;
     }
 </style>
-        <!--The search form above-->
-            <div class="col-sm-6 col-md-6">
-                    {% if user.is_authenticated %}
-                    <ul>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                                <span class="caret"></span>
-                            </a>
-                        <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                        <li>
-                            <a href="/accounts/password/change">Change Password</a>
-                        </li>
-                        <li>
-                            <a href="/logout">Logout</a>
-                        </li>
-                        <li>
-                        <a href="/signup">Register</a>
-                    </li>
-                        </ul>
-                    </li>
-                    </ul>
-                    {% else %}
-                    <li>
-                    <a class='btn btn-default' href="/accounts/login">Login</a>
-                    </li>
-
-                    {% endif %}
-                </div>
-    </nav>
-
-    
 </body>
 
 </html>

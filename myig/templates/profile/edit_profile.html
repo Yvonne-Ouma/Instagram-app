@@ -2,12 +2,12 @@
 {% load bootstrap3 %}
 
 {% block content %}
-<div class="container top">
+<div class="container top" style="padding-top: 120px;">
     <div class="row edit-profile">
-        <div class="col-md-4 edit-areas">
+        <div class="col-md-2 edit-areas">
             <h3>Account</h3>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% bootstrap_form form %}
