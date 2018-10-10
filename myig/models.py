@@ -12,14 +12,13 @@ class Profile(models.Model):
 
     @classmethod
     def get_by_id(cls, id):
-        profile = Profile.objects.get(user = id)
+        profile = Profile.objects.get(user=id)
         return profile
 
     @classmethod
     def filter_by_id(cls, id):
-        profile = Profile.objects.filter(user = id).first()
+        profile = Profile.objects.filter(user=id).first()
         return profile
-		
 
     def save_profile(self):
         self.save()
@@ -43,20 +42,25 @@ class Image(models.Model):
 
     # def delete_image():
     #     self.delete()
-
-
     @classmethod
-    def get_profile_images(cls, profile):
-        images = Image.objects.filter(profile__pk=profile)
-        return images
+    def filter_by_search_term(cls, search_term):
+        return cls.objects.filter(image_caption__icontains=search_term)
+
+    # @classmethod
+    # def get_profile_images(cls, profile):
+    #     images = Image.objects.filter(profile__pk=profile)
+    #     return images
+
     def __str__(self):
         return self.name
+
 
 class Comment(models.Model):
 
     text = models.CharField(max_length=200, blank=True)
     poster = models.ForeignKey(User,  on_delete=models.CASCADE)
-    post = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(
+        Image, on_delete=models.CASCADE, related_name='comments')
     posted_time = models.DateTimeField(auto_now_add=True)
 
     def save_comment(self):
@@ -67,5 +71,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-

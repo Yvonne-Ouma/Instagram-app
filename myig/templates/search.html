@@ -1,14 +1,21 @@
 {% extends 'base.html'%}
 {% block content %}
 <div class="container" style="padding:120px">
+    {{ photos | length }}
 
+    {% for photo in photos %}
+
+
+    <img src="{{ photo.image.url }}" alt="">
+
+    {% endfor %}
     <div class="row">
-        {% if profiles%}
+        {% if photos %}
         <h2>Found {{ images|length }} of searched term {{message}}</h2>
 
 
         {% else %}
-        <h2> Found 0 profiles for the search term {{message}}</h2>
+        <h2> Found 0 photos for the search term {{message}}</h2>
         {% endif %}
 
     </div>
@@ -16,13 +23,13 @@
     <div class="row">
 
         {% if images %}
-        {% for image in profiles %}
+        {% for image in photos %}
         <div class="col-md-6">
             <div class="panel panel-default" width=200px>
                 <div class="panel-heading">
                     <h1>{{image.user_name}}</h1>
                 </div>
-                <div class="panel-body"><img src="{{image.profile_image.url}}" alt="image" width="400px"></div>
+                <div class="panel-body"><img src="{{image.image.url}}" alt="image" width="400px"></div>
 
                 <div class="panel-footer">
                     <p>{{image.profile_caption}}</p>

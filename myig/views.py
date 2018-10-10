@@ -67,16 +67,16 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
-    if 'profile' in request.GET and request.GET["profile"]:
-        search_term = request.GET.get('profile')
-        searched_profiles = Profile.search_profile(search_term)
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get('search')
+        photos = Image.filter_by_search_term(search_term)
+        print(photos)
         message = f"{search_term}"
 
-        return render(request, 'search.html', {"message": message, "profiles": searched_profiles})
-
-    else:
-        message = "No searched profile"
-        return render(request, 'search.html', {"message": message})
+    # else:
+    #     message = "No searched profile"
+    #     return render(request, 'search.html', {"message": message})
+    return render(request, 'search.html', {"message": message, "photos": photos})
 
 
 @login_required(login_url='/accounts/login/')
@@ -88,8 +88,8 @@ def profile(request):
     #     profile = Profile.get_by_id(profile.id)
     # except:
     #     profile = Profile.filter_by_id(profile.id)
-    images = Image.get_profile_images(profile.id)
-    return render(request, 'profile/profile.html', {'user': current_user,  'images': images})
+    # images = Image.get_profile_images(profile.id)
+    return render(request, 'profile/profile.html', {'user': current_user,  })
 
 
 @login_required(login_url='/accounts/login/')
@@ -121,8 +121,7 @@ def edit_profile(request):
     else:
         form = ProfileForm()
 
-
-    return render(request, 'profile/edit_profile.html', {'form': form, 'user':user})
+    return render(request, 'profile/edit_profile.html', {'form': form, 'user': user})
 
 
 @login_required(login_url='/accounts/login/')
