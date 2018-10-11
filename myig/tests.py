@@ -6,7 +6,7 @@ from .models import Profile, Image, Comment
 class ProfileTestClass(TestCase):
     #set up method
     def setUp(self):
-        self.ojijo = Profile(user = 'ojijo',user_name='yvonne',bio = 'this is true',profile_image = 'myilg/media/profile/ujbi.jpg')
+        self.ojijo = Profile(user = 'ojijo',user_name='yvonne',bio = 'this is true',profile_image = 'myilg/media/profiles/ujbi.jpg')
     #testing instance
 
     def test_instance(self):
@@ -52,7 +52,7 @@ class CommentTestClass(TestCase):
 class ImageTestClass(TestCase):
     #set Up method
     def setUp(self):
-        self.image = Image(image='cool')
+        self.image = Image(name = 'haron' ,image_caption= 'yeah', image='myig/media/images/uierh.jpg' ,profile = 'popopod',posted_time='32 minutes ago')
     #test  instance
 
     def test_instance(self):
@@ -68,12 +68,12 @@ class ImageTestClass(TestCase):
     def test_delete_method(self):
         self.image.save_image()
         self.image.delete_image()
-        image = Image.objects.all()
+        images = Image.objects.all()
         self.assertTrue(len(image) > 0)
     #testing for update caption
 
     def test_update_metod(self):
         self.image.save_image()
         self.image.update_caption()
-        image = Image.objects.all()
+        images = Image.objects.all()
         self.assertTrue(len(image) > 0)
