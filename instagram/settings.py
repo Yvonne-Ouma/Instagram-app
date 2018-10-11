@@ -62,6 +62,7 @@ SECRET_KEY = 'qo+!e$qhtr6nhy1n185q9x_*vh0ks*$#!4j)rjd9ov-9sao)v7'
 ALLOWED_HOSTS = ['instagramyvonne.herokuapp.com','127.0.0.1']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -37,11 +37,15 @@ class Image(models.Model):
     profile = models.ForeignKey(Profile)
     posted_time = models.DateTimeField(auto_now_add=True)
 
-    # def save_image():
-    #     self.save()
+    def save_image(self):
+        self.save()
 
-    # def delete_image():
-    #     self.delete()
+    def delete_image(self):
+        self.delete()
+
+    def update_caption(self):
+        self.save()
+
     @classmethod
     def filter_by_search_term(cls, search_term):
         return cls.objects.filter(image_caption__icontains=search_term)
@@ -68,6 +72,7 @@ class Comment(models.Model):
 
     def delete_comment(self):
         self.delete()
+        
 
     def __str__(self):
         return self.text
