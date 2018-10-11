@@ -6,22 +6,22 @@ from .models import Profile, Image, Comment
 class ProfileTestClass(TestCase):
     #set up method
     def setUp(self):
-        self.yvonne = Profile(username='yvonne')
+        self.ojijo = Profile(user = 'ojijo',user_name='yvonne',bio = 'this is true',profile_image = 'myilg/media/profile/ujbi.jpg')
     #testing instance
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.yvonne, Profile))
+        self.assertTrue(isinstance(self.ojijo, Profile))
     #testing save method
 
     def test_save_method(self):
-        self.yvonne.save_profile()
+        self.ojijo.save_profile()
         profiles = Profile.objects.all()
         self.assertTrue(len(profiles) > 0)
     #testng for deleting method
 
     def test_delete_method(self):
-        self.yvonne.save_profile()
-        self.yvonne.delete_profile()
+        self.ojijo.save_profile()
+        self.ojijo.delete_profile()
         profiles = Profile.objects.all()
         self.assertTrue(len(profiles) == 1)
 
@@ -29,22 +29,22 @@ class ProfileTestClass(TestCase):
 class CommentTestClass(TestCase):
     #set up method
     def setUp(self):
-        self.coments = Comment(description='comment')
+        self.commentIg = Comment(text='this made me cry', poster ='yvonne', posted_time = '12 minutes ago')
     #testing instance
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.coments, Comment))
+        self.assertTrue(isinstance(self.commentIg, Comment))
     #testing for savinng method
 
     def test_save_method(self):
-        self.coments.save_comment()
+        self.commentIg.save_comment()
         comments = Comment.objects.all()
         self.assertTrue(len(comments) > 0)
     #testng for deleting method
 
     def test_delete_method(self):
-        self.coments.save_comment()
-        self.coments.delete_comment()
+        self.commentIg.save_comment()
+        self.commentIg.delete_comment()
         comments = Comment.objects.all()
         self.assertTrue(len(comments) == 1)
 
