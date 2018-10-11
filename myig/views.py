@@ -31,6 +31,8 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
+            profile=Profile(user=user)
+            profile.save()
             current_site = get_current_site(request)
             mail_subject = 'Activate your blog account.'
             message = render_to_string('acc_active_email.html', {
@@ -82,14 +84,14 @@ def search_results(request):
 @login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
-    profile = User.objects.get(username=request.user)
-    images = Profile.objects.get(user=current_user)
+    user = User.objects.get(username=request.user)
+    profile = Profile.objects.get(user=current_user)
     # try:
     #     profile = Profile.get_by_id(profile.id)
     # except:
     #     profile = Profile.filter_by_id(profile.id)
     # images = Image.get_profile_images(profile.id)
-    return render(request, 'profile/profile.html', {'user': current_user,  })
+    return render(request, 'profile/profile.html', {'user': current_user, "profile":profile})
 
 
 @login_required(login_url='/accounts/login/')

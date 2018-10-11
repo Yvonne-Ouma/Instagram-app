@@ -1,5 +1,6 @@
-from django.conf.urls import url
+from django.conf.urls import url,include
 from . import views
+from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -11,6 +12,8 @@ urlpatterns = [
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^edit/', views.edit_profile, name='edit_profile'),
     url(r'^profile/', views.profile, name='profile'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^logout/$', auth_views.logout, {"next_page": '/'}),
     url(r'^post/', views.post_image, name='post_image'),
     url(r'^comment/(\d+)', views.comment, name='comment'),
 
