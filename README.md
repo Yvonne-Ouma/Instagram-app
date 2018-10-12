@@ -20,7 +20,7 @@ Yvonne Ouma
 * Install all the necessary requirements by running pip install -r requirements.txt (Python 3).
 * configure your prefered database provider in the settings.
 * python3.6 manager.py check
-* python3.6 manager.py makemigrations Gram
+* python3.6 manager.py makemigrations myig
 * python3.6 manager.py migrate
 * python3.6 manager.py runserver
 
